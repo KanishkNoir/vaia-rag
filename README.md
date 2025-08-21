@@ -2,13 +2,13 @@
 
 An intelligent RAG pipeline with an agentic AI system that automatically detects user intent and routes queries to the appropriate tool:
 
-## 🛠️ Tools Available
+##  Tools Available
 
 1. **Q&A Tool**: Answers specific questions about the document
 2. **Summarizer Tool**: Provides document summaries  
 3. **Data Extractor Tool**: Extracts structured data as JSON
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Option 1: Docker Deployment (Recommended)
 
@@ -53,7 +53,7 @@ An intelligent RAG pipeline with an agentic AI system that automatically detects
    python -m uvicorn src.api.main:app --reload
    ```
 
-## 💡 Example Queries
+##  Example Queries
 
 The agent automatically detects intent and routes to the right tool:
 
