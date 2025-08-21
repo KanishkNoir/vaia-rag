@@ -142,9 +142,13 @@ It is also efficient more on consumer grade GPU as its context length is not too
 ### 3. Embedding Model:
 For embeddings I used 'BAAI/bge-large-en-v1.5' as its popular for its embeddings for tasks like RAG and the workflow is RAG based.
 
-### Contextual Chunking: Here we used contextual chunking which uses LLM to add an extra layer of context to each chunks making it more semanticaly meaningful and it helps enhances the retrieval.
+### 4. Contextual Chunking: 
+Here we used contextual chunking which uses LLM to add an extra layer of context to each chunks making it more semanticaly meaningful and it helps enhances the retrieval.
 
-### Reranker: To ensure better retrieval I used cohere's endpoint of Reranker to rank best answer out of top 5
+### 5. Reranker: 
+To ensure better retrieval I used cohere's endpoint of Reranker to rank best answer out of top 5
 For better result instead of direct returning the answer in retrieval.
 
-### For Data Extractor tool I used few shot prompting as it follows a different output format (JSON).
+### 6. Prompting:
+For Data Extractor tool I used few shot prompting as it follows a different output format (JSON).
+Each tool has its own prompt to ensure the answers are to the point and in stuctured manner.
