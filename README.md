@@ -154,3 +154,13 @@ Find chunks with similar vectors
 Return top 5 most relevant chunks
 ```
 
+### 3. Why Together AI
+
+```
+Due to credit expiry of openai and pricing I used Together.ai as it provides many models for both chat and embeddings. 
+This project uses 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo' as it is not heavy for local deployment and it is particularly good at summarization and code generation. 
+It is also efficient more on consumer grade GPU as its context length is not too large as well -> 128K
+
+
+For embeddings I used 'BAAI/bge-large-en-v1.5' as its popular for its embeddings for tasks like RAG and the workflow is RAG based.
+```
