@@ -1,14 +1,12 @@
 # VAIA RAG Multi-Tool Agent
 
-An intelligent RAG pipeline with an agentic AI system that automatically detects user intent and routes queries to the appropriate tool:
-
 ##  Tools Available
 
 1. **Q&A Tool**: Answers specific questions about the document
 2. **Summarizer Tool**: Provides document summaries  
 3. **Data Extractor Tool**: Extracts structured data as JSON
 
-##  Quick Start
+##  Deployment
 
 ### Option 1: Docker Deployment (Recommended)
 
@@ -93,32 +91,8 @@ curl -X POST "http://localhost:8000/query" \
   -d '{"query": "Extract financial data"}'
 ```
 
-## 📁 Project Structure
 
-```
-vaia-rag/
-├── src/
-│   ├── core/
-│   │   ├── document_loader.py    # Document loading & chunking
-│   │   ├── context_generator.py  # Contextual chunking
-│   │   ├── vector_store.py       # FAISS embeddings & search
-│   │   ├── reranker.py          # Cohere reranking
-│   │   └── rag_pipeline.py      # Main RAG orchestrator
-│   ├── agents/
-│   │   ├── tools.py             # LangChain tools (@tool decorators)
-│   │   └── agent.py             # Multi-tool agent with LangGraph
-│   ├── api/
-│   │   └── main.py              # FastAPI backend
-│   └── ui/
-│       └── app.py               # Streamlit frontend
-├── data/
-│   └── document.txt             # Sample document
-├── Dockerfile                   # Container configuration
-├── docker-compose.yml          # Multi-service deployment
-└── requirements.txt             # Python dependencies
-```
-
-## 🎯 Key Features
+##  Key Features
 
 - **Intelligent routing**: Agent automatically detects user intent and selects the right tool.
 - **Tool-specific prompts**: Optimized prompts per tool. Few-shot prompting for the Data Extractor enforces strict JSON output.
@@ -127,9 +101,9 @@ vaia-rag/
 - **RAG pipeline**: Separate modules for each stage to keep the system scalable.
 
 ```
-📄 Document → ✂️ Chunks → 🧠 Context → 🔢 Vectors → 💾 Store
+ Document →  Chunks →  Context →  Vectors →  Store
                                                         ↓
-👤 User Query → 🔍 Search → 📊 Rerank → 🤖 LLM → ✅ Answer
+ User Query →  Search →  Rerank →  LLM →  Answer
 ```
 
 ### 1. Document ingestion
@@ -154,13 +128,23 @@ Find chunks with similar vectors
 Return top 5 most relevant chunks
 ```
 
-### 3. Why Together AI
+## Design Decision
 
-```
-Due to credit expiry of openai and pricing I used Together.ai as it provides many models for both chat and embeddings. 
-This project uses 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo' as it is not heavy for local deployment and it is particularly good at summarization and code generation. 
+### 1. Instead of implementing the whole RAG pipeline in a single file I seperated each step in its own file due to scalability and cleaner code.
+
+### 2. Why Together AI:
+Due to pricing issue of openai api I used Together.ai.
+As it provides many SOTA models for both chat and embeddings. 
+This project uses 'meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo'.
+It is not heavy for local deployment and it is particularly good at summarization and code generation. 
 It is also efficient more on consumer grade GPU as its context length is not too large as well -> 128K
 
-
+### 3. Embedding Model:
 For embeddings I used 'BAAI/bge-large-en-v1.5' as its popular for its embeddings for tasks like RAG and the workflow is RAG based.
-```
+
+### Contextual Chunking: Here we used contextual chunking which uses LLM to add an extra layer of context to each chunks making it more semanticaly meaningful and it helps enhances the retrieval.
+
+### Reranker: To ensure better retrieval I used cohere's endpoint of Reranker to rank best answer out of top 5
+For better result instead of direct returning the answer in retrieval.
+
+### For Data Extractor tool I used few shot prompting as it follows a different output format (JSON).
