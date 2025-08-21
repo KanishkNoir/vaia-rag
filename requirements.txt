@@ -1,0 +1,12 @@
+streamlit
+langchain
+langchain-community
+langchain-core
+faiss-cpu
+cohere
+python-dotenv
+fastapi
+uvicorn
+pydantic
+together
+langchain-together
